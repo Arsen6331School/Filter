@@ -13,7 +13,7 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
     {
         for (int j = 0; j < width; j++)
         {
-            BYTE avg = (image[i][j].rgbtRed+image[i][j].rgbtBlue+image[i][j].rgbtGreen)/3;
+            BYTE avg = round((image[i][j].rgbtRed+image[i][j].rgbtBlue+image[i][j].rgbtGreen)/3);
             image[i][j].rgbtRed = avg;
             image[i][j].rgbtBlue = avg;
             image[i][j].rgbtGreen = avg;
@@ -30,9 +30,9 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
         for (int j = 0; j < width; j++)
         {
             RGBTRIPLE orig = image[i][j];
-            BYTE sepiaRed = fmin(.393 * orig.rgbtRed + .769 * orig.rgbtGreen + .189 * orig.rgbtBlue, 255);
-            BYTE sepiaGreen = fmin(.349 * orig.rgbtRed + .686 * orig.rgbtGreen + .168 * orig.rgbtBlue, 255);
-            BYTE sepiaBlue = fmin(.272 * orig.rgbtRed + .534 * orig.rgbtGreen + .131 * orig.rgbtBlue, 255);
+            BYTE sepiaRed = round(fmin(.393 * orig.rgbtRed + .769 * orig.rgbtGreen + .189 * orig.rgbtBlue, 255));
+            BYTE sepiaGreen = round(fmin(.349 * orig.rgbtRed + .686 * orig.rgbtGreen + .168 * orig.rgbtBlue, 255));
+            BYTE sepiaBlue = round(fmin(.272 * orig.rgbtRed + .534 * orig.rgbtGreen + .131 * orig.rgbtBlue, 255));
             image[i][j].rgbtRed = sepiaRed;
             image[i][j].rgbtBlue = sepiaGreen;
             image[i][j].rgbtGreen = sepiaBlue;
@@ -66,7 +66,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
             int blueSum = image[i][j].rgbtBlue;
             int greenSum = image[i][j].rgbtGreen;
             int redSum = image[i][j].rgbtRed;
-            int amt = 1;
+            float amt = 1;
             if (i > 0)
             {
                 blueSum += image[i-1][j].rgbtBlue;
@@ -123,9 +123,9 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 redSum += image[i+1][j-1].rgbtRed;
                 amt++;
             }
-            new[i][j].rgbtBlue = blueSum/amt;
-            new[i][j].rgbtGreen = greenSum/amt;
-            new[i][j].rgbtRed = redSum/amt;
+            new[i][j].rgbtBlue = round(blueSum/amt);
+            new[i][j].rgbtGreen = round(greenSum/amt);
+            new[i][j].rgbtRed = round(redSum/amt);
         }
     }
     cpImg(height, width, image, new);
