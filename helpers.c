@@ -1,6 +1,11 @@
 #include "helpers.h"
 #include <math.h>
 
+// Copy an image's pixels to another image
+// Check50 is too stupid for me to include this in helpers.h
+void cpImg(int height, int width, RGBTRIPLE dest[height][width], RGBTRIPLE src[height][width]);
+
+
 // Convert image to grayscale
 void grayscale(int height, int width, RGBTRIPLE image[height][width])
 {
