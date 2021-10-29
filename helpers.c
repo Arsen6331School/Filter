@@ -15,7 +15,7 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
     {
         for (int j = 0; j < width; j++)
         {
-            BYTE avg = round((image[i][j].rgbtRed+image[i][j].rgbtBlue+image[i][j].rgbtGreen)/3.0);
+            BYTE avg = round((image[i][j].rgbtRed + image[i][j].rgbtBlue + image[i][j].rgbtGreen) / 3.0);
             image[i][j].rgbtRed = avg;
             image[i][j].rgbtBlue = avg;
             image[i][j].rgbtGreen = avg;
@@ -51,7 +51,7 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
     {
         for (int j = 0; j < width; j++)
         {
-            new[i][width-j - 1] = image[i][j];
+            new[i][width - j - 1] = image[i][j];
         }
     }
     cpImg(height, width, image, new);
@@ -125,9 +125,9 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 redSum += image[i + 1][j - 1].rgbtRed;
                 amt++;
             }
-            new[i][j].rgbtBlue = round(blueSum/amt);
-            new[i][j].rgbtGreen = round(greenSum/amt);
-            new[i][j].rgbtRed = round(redSum/amt);
+            new[i][j].rgbtBlue = round(blueSum / amt);
+            new[i][j].rgbtGreen = round(greenSum / amt);
+            new[i][j].rgbtRed = round(redSum / amt);
         }
     }
     cpImg(height, width, image, new);
